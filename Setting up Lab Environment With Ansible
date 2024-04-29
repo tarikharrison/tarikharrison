@@ -19,5 +19,55 @@ vim /etc/hosts
   192.168.132.112  node2.example.com    node2
 
 #Ping each host to verify connectivity: execute existing script
-ping
+#See Ping "etc hosts" Script for more detail
+./ping_hosts.sh
+
+#Setup Sudo User on control node
+useradd ansible
+sudo sh -c "echo password | passwd --stdin ansible"
+sudo sh -c "echo 'ansible ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/ansible"
+su - ansible
+
+#Fetch host key fingerprint for SSH capabilities as user ansible
+ssh node1
+ssh node2
+
+#Create Inventory File
+#If in a complex environment use FQDN
+vim inventory
+  node1
+  node2
+
+#Enable Ansible Automation Platform 
+sudo subscription-manager repos --enable ansible-automation-platform-2.2-for-rhel-9-x86_64-rpms
+sudo dnf install -y ansible-core ansible-navigator
+
+#Create user ansible on managed machines
+#Why LinuxAdmin? Consider that LinuxAdmin is default user on managed machines
+ansible -i inventory all - u LinuxAdmin -k -b -K -m user -a "name=ansible"
+
+#Priviledge Escalation for user ansible
+ansible all -u LinuxAdmin -k -b -K -m shell -a "echo password | passwd --stdin ansible"
+ansible all -u LinuxAdmin -k -b -K -m shell -a "echo 'ansible ALL=(ALL) NOPASSWD: ALL' > /etc/sudoers.d/ansible"
+ssh-keygen
+ssh-copy-id node1
+ssh-copy-id node2
+
+#For simplicity create ansible config file (ansible.cfg)
+vim ansible.cfg
+  [defaults]
+  inventory = inventory
+  remote_user = ansible
+  aks_pass = false
+  [privilege_escalation]
+  become = true
+  become_method = sudo
+  become_user = root
+  become_ask_pass = true
+
+#Test connection and priviledges to managed nodes
+ansible all -m command -a "ls -l /root"
+
+
+
 
