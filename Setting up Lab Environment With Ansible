@@ -2,9 +2,11 @@
 #Setup 3 RHEL VM's (Control Node with GUI, Managed Node 1 Basic Installation, Managed Node 2 Basic Installation)
 
 #Setup static IP Addresses for each node
+#Example
 nmtui
 ip address: 192.168.132.110
-
+gateway: 192.168.132.2
+DNS server: 8.8.8.8
 
 #Control Node: install Ansible
 sudo subscription-manager register
@@ -16,6 +18,6 @@ vim /etc/hosts
   192.168.132.111  node1.example.com    node1
   192.168.132.112  node2.example.com    node2
 
-#Ping each host to verify connectivity
+#Ping each host to verify connectivity: execute existing script
 ping
 
