@@ -59,6 +59,7 @@ vim ansible.cfg
   inventory = inventory
   remote_user = ansible
   aks_pass = false
+
   [privilege_escalation]
   become = true
   become_method = sudo
