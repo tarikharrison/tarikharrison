@@ -4,7 +4,7 @@
 
   echo "My collection of Linux and DevOPs type projects, enjoy!"
 
-
+./tarikharrison
 
 
 
