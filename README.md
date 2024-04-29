@@ -1,6 +1,10 @@
-  Linux Systems Administartor who loves automation!
+#!/bin/bash
+  
+  echo "Linux Systems Administrator who loves automation!"
 
-  Here is my showcasing of some Rhel based projects:
+  echo "My collection of Linux and DevOPs type scripts, enjoy!"
+
+
 
 
 
