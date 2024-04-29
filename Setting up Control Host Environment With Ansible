@@ -8,7 +8,7 @@ ip address: 192.168.132.110
 gateway: 192.168.132.2
 DNS server: 8.8.8.8
 
-#Control Node: install Ansible
+#Control Node: set up subscription-manager
 sudo subscription-manager register
 sudo subscription-manager attach
 
