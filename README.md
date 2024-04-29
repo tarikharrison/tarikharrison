@@ -1,4 +1,4 @@
-  👋 Hello everyone, my name is Tarik, I love iOS.  
+  Linux Systems Administartor who loves automation!
 
 
 
